@@ -28,9 +28,12 @@ protected:
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV 支持
 
 	DECLARE_MESSAGE_MAP()
-private:
+private:	
 	CEdit m_fileEdit;
-	std::vector<cv::Mat> srcImg,dstImg;
+	//输入，输出图片集
+	std::vector<cv::Mat> srcImgs,dstImgs;
+	//存放文件路径的向量
+	std::vector<CString> fileNameVector;
 public:
 	afx_msg void OnBnClickedChoosebutton();
 	afx_msg void OnBnClickedGraybutton();
