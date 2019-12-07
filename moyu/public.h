@@ -18,6 +18,6 @@ public:
 	//全局函数，Mat类转为CImage类
 	static void MatToCImage(cv::Mat& mat, CImage& cImage); 
 	//Mat图像显示到指定的pic控件
-	void ShowMat(cv::Mat vMat, HWND hDlg, int vIDC);
+	static void ShowMat(cv::Mat vMat, HWND hDlg, int vIDC);
 };
 

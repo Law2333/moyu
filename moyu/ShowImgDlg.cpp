@@ -30,6 +30,7 @@ BEGIN_MESSAGE_MAP(CShowImgDlg, CFormView)
 	ON_BN_CLICKED(IDC_CHOOSEBUTTON, &CShowImgDlg::OnBnClickedChoosebutton)
 	ON_BN_CLICKED(IDC_OPENBUTTON, &CShowImgDlg::OnBnClickedOpenbutton)
 
+	ON_WM_PAINT()
 END_MESSAGE_MAP()
 
 
@@ -85,7 +86,6 @@ void CShowImgDlg::OnBnClickedOpenbutton()
 	std::string tempPath = (LPCSTR)CStringA(filePath);
 
 	//读取图片
-	cv::Mat image;
     image = cv::imread(tempPath);
 	if (image.empty())
 	{
@@ -97,9 +97,32 @@ void CShowImgDlg::OnBnClickedOpenbutton()
 	cv::namedWindow("image", CPublic::winShowType);
 	cv::imshow("image", image);
 
+	//pic控件中显示Mat
+	HWND sWnd = this->GetSafeHwnd();
+	CPublic::ShowMat(image, sWnd, IDC_SHOWIMG);
+
+	//保留图片显示状态
+	drawFlag = 1;
+
 	UpdateData(false);
 
 }
 
 
 
+
+
+void CShowImgDlg::OnPaint()
+{
+	// TODO: 在此处添加消息处理程序代码
+	// 不为绘图消息调用 CFormView::OnPaint()
+	
+	CFormView::OnPaint();
+	//按下显示按钮，图片维持显示状态
+	if (drawFlag)
+	{
+		HWND sWnd = this->GetSafeHwnd();
+		CPublic::ShowMat(image, sWnd, IDC_SHOWIMG);
+	}
+
+}

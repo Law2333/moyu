@@ -33,8 +33,12 @@ public:
 
 private:
 	CEdit m_fileEdit;
-
 	CStatic m_showImgP;
+
+	cv::Mat image;		//读取的图片
+	int drawFlag = 0;	//是否显示图片的标志
+public:
+	afx_msg void OnPaint();
 };
 
 

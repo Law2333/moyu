@@ -26,25 +26,26 @@ void CPublic::ShowMat(cv::Mat vMat, HWND hDlg, int vIDC)
 	//将客户区选中到控件表示的矩形区域内
 	//ScreenToClient(&rect);
 
-	CString msg;
-	msg.Format(_T("tImgWidth=%d,tImgHeight=%d, rect：w=%d, h=%d"), tImgWidth, tImgHeight, rect.Width(), rect.Height());
+	//CString msg;
+	//msg.Format(_T("tImgWidth=%d,tImgHeight=%d, rect：w=%d, h=%d"), tImgWidth, tImgHeight, rect.Width(), rect.Height());
 	//MessageBox(msg, _T("showMat"), MB_OK); 
 
+	//适用于控件的图像宽高
 	int tNewWidth, tNewHeight;
-
+	//绘制图像时2点的位置
 	int tLeft = 0, tTop = 0, tRight = rect.Width(), tBottom = rect.Height();
 	if (tImgWidth > tImgHeight) {
 		//如果图像是横的
-		tNewWidth = tRight;
+		tNewWidth = rect.Width();
 		tNewHeight = tNewWidth * tImgHeight / tImgWidth;
-		tTop = (tNewWidth - tNewHeight) / 2;
+		tTop = (rect.Height() - tNewHeight) / 2;
 		tBottom = rect.Height() - tTop;
 	}
 	else {
 		//如果图像是竖的
 		tNewHeight = tBottom;
 		tNewWidth = tNewHeight * tImgWidth / tImgHeight;
-		tLeft = (tNewHeight - tNewWidth) / 2;
+		tLeft = (rect.Width() - tNewWidth) / 2;
 		tRight = rect.Width() - tLeft;
 	}
 
@@ -55,25 +56,28 @@ void CPublic::ShowMat(cv::Mat vMat, HWND hDlg, int vIDC)
 	CImage cimg;
 	MatToCImage(zoomImg, cimg);
 
-	msg.Format(_T("neww=%d, newh=%d"), cimg.GetWidth(), cimg.GetHeight());
+	//msg.Format(_T("neww=%d, newh=%d"), cimg.GetWidth(), cimg.GetHeight());
 	//MessageBox(msg, _T("mm"), MB_OK); 
 
 	///-----------------------------------------------------------------
 	//以下是显示
-	CWnd *pWnd = NULL;
-	pWnd->FromHandle(GetDlgItem(hDlg, vIDC));//获取控件句柄 
+	HWND pWnd = NULL;
+	pWnd = GetDlgItem(hDlg, vIDC);//获取控件句柄 
 
-	CDC *pDc = NULL;
-	pDc = pWnd->GetDC();//获取picture的DC
+	HDC pDc = NULL;
+	pDc = GetDC(pWnd);//获取picture的DC
 
 						//白色背景填充,保留边框
-	CBrush brush(RGB(255, 255, 255));
-
+	HBRUSH brush = CreateSolidBrush(RGB(255, 255, 255));
+	
 	CRect tRect = CRect(1, 1, rect.Width() - 2, rect.Height() - 2);
-	pDc->FillRect(tRect, &brush);
-	cimg.Draw(pDc->m_hDC, CRect(tLeft + 1, tTop + 1, tRight - 1, tBottom - 1));
+	FillRect(pDc,tRect, brush);
+	cimg.Draw(pDc, CRect(tLeft + 1, tTop + 1, tRight - 1, tBottom - 1));
 
-	ReleaseDC();
+	//删除画刷
+	DeleteObject(brush);
+	//释放DC
+	ReleaseDC(pWnd,pDc);
 	//msg.Format(_T("tLeft=%d,tTop=%d, tRight=%d,tBottom=%d"), tLeft, tTop, tRight, tBottom);
 	//MessageBox(msg, _T("showMat"), MB_OK);
 }
