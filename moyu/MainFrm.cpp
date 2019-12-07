@@ -1,6 +1,6 @@
 
 // MainFrm.cpp : CMainFrame 类的实现
-//
+//主体窗口的实现，如：菜单栏，点击选项卡切换等
 
 #include "stdafx.h"
 #include "moyu.h"
@@ -181,7 +181,7 @@ void CMainFrame::OnMainExit()
 
 }
 
-//菜单栏图片显示模式
+//菜单栏-设置-图片显示模式
 void CMainFrame::OnChangeShowTyle()
 {
 	// TODO: 在此添加命令处理程序代码

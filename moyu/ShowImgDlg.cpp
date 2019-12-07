@@ -1,5 +1,6 @@
 // ShowImgDlg.cpp : 实现文件
-//
+// 图片显示的实现
+
 #include "stdafx.h"
 #include "ShowImgDlg.h"
 #include "moyu.h"
@@ -109,9 +110,7 @@ void CShowImgDlg::OnBnClickedOpenbutton()
 }
 
 
-
-
-
+//重写OnPaint维持图像一直显示
 void CShowImgDlg::OnPaint()
 {
 	// TODO: 在此处添加消息处理程序代码

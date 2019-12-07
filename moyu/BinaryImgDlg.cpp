@@ -1,5 +1,5 @@
 ﻿// BinaryImgDlg.cpp : 实现文件
-//
+// 图像二值化选项卡的实现
 
 #include "stdafx.h"
 #include "moyu.h"

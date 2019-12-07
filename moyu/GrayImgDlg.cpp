@@ -1,5 +1,6 @@
 // GrayImgDlg.cpp : 实现文件
-//
+// 图像灰度处理选项卡的实现
+// 可实现批量灰度处理
 
 #include "stdafx.h"
 #include "moyu.h"
