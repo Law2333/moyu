@@ -7,6 +7,9 @@
 #include "SelectView.h"
 #include "DisplayView.h"
 #include "GrayImgDlg.h"
+#include "ShowImgDlg.h"
+#include "BinaryImgDlg.h"
+#include "public.h"
 
 #include "MainFrm.h"
 
@@ -182,11 +185,11 @@ void CMainFrame::OnMainExit()
 void CMainFrame::OnChangeShowTyle()
 {
 	// TODO: 在此添加命令处理程序代码
-	winShowType = !winShowType;
+	CPublic::winShowType = !CPublic::winShowType;
 }
 void CMainFrame::OnUpdateChangeShowTyle(CCmdUI *pCmdUI)
 {
 	// TODO: 在此添加命令更新用户界面处理程序代码
 
-	pCmdUI->SetCheck(!winShowType);
+	pCmdUI->SetCheck(!CPublic::winShowType);
 }

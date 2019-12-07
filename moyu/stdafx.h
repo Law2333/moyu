@@ -37,15 +37,6 @@
 #include <opencv2/opencv.hpp>
 #include <afxcview.h>
 
-
-//定义了一些全局变量
-
-//菜单栏控制图片显示模式
-extern int winShowType;
-
-
-
-
 #ifdef _UNICODE
 #if defined _M_IX86
 #pragma comment(linker,"/manifestdependency:\"type='win32' name='Microsoft.Windows.Common-Controls' version='6.0.0.0' processorArchitecture='x86' publicKeyToken='6595b64144ccf1df' language='*'\"")

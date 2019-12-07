@@ -4,6 +4,7 @@
 #include "stdafx.h"
 #include "moyu.h"
 #include "BinaryImgDlg.h"
+#include "public.h"
 
 
 // CBinaryImgDlg
@@ -85,7 +86,7 @@ void CBinaryImgDlg::OnBnClickedChoosebutton()
 		return;
 	}
 
-	cv::namedWindow("image", winShowType);
+	cv::namedWindow("image", CPublic::winShowType);
 	cv::imshow("image", srcImg);
 
 	UpdateData(false);
@@ -117,7 +118,7 @@ void CBinaryImgDlg::OnBnClickedProcessbutton()
 	int thresholdMethod = m_methodCombox.GetCurSel() * 8;
 
 	cv::threshold(srcImg, dstImg, thresholdMin, thresholdMax, thresholdType|thresholdMethod);
-	cv::namedWindow("阈值图像", winShowType);
+	cv::namedWindow("阈值图像", CPublic::winShowType);
 	cv::imshow("阈值图像", dstImg);
 
 	return;

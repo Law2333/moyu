@@ -193,6 +193,7 @@
     <ClInclude Include="moyu.h" />
     <ClInclude Include="moyuDoc.h" />
     <ClInclude Include="moyuView.h" />
+    <ClInclude Include="public.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="SelectView.h" />
     <ClInclude Include="ShowImgDlg.h" />
@@ -207,6 +208,7 @@
     <ClCompile Include="moyu.cpp" />
     <ClCompile Include="moyuDoc.cpp" />
     <ClCompile Include="moyuView.cpp" />
+    <ClCompile Include="public.cpp" />
     <ClCompile Include="SelectView.cpp" />
     <ClCompile Include="ShowImgDlg.cpp" />
     <ClCompile Include="stdafx.cpp">

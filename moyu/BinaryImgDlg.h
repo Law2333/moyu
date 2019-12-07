@@ -1,11 +1,11 @@
 #pragma once
+
 #include "afxcmn.h"
 #include "afxwin.h"
 
 
 
 // CBinaryImgDlg ¥∞ÃÂ ”Õº
-
 class CBinaryImgDlg : public CFormView
 {
 	DECLARE_DYNCREATE(CBinaryImgDlg)

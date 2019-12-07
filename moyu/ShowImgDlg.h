@@ -2,8 +2,6 @@
 #include "afxwin.h"
 
 
-
-
 // CShowImgDlg ¥∞ÃÂ ”Õº
 
 class CShowImgDlg : public CFormView
@@ -36,6 +34,7 @@ public:
 private:
 	CEdit m_fileEdit;
 
+	CStatic m_showImgP;
 };
 
 

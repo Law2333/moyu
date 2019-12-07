@@ -2,7 +2,6 @@
 #include "afxwin.h"
 
 
-
 // CGrayImgDlg ¥∞ÃÂ ”Õº
 
 class CGrayImgDlg : public CFormView

@@ -3,6 +3,7 @@
 #include "stdafx.h"
 #include "ShowImgDlg.h"
 #include "moyu.h"
+#include "public.h"
 
 // CShowImgDlg
 
@@ -22,6 +23,7 @@ void CShowImgDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CFormView::DoDataExchange(pDX);
 	DDX_Control(pDX, IDC_OPENEDIT, m_fileEdit);
+	DDX_Control(pDX, IDC_SHOWIMG, m_showImgP);
 }
 
 BEGIN_MESSAGE_MAP(CShowImgDlg, CFormView)
@@ -92,7 +94,7 @@ void CShowImgDlg::OnBnClickedOpenbutton()
 	}
 
 	//设置窗口格式
-	cv::namedWindow("image", winShowType);
+	cv::namedWindow("image", CPublic::winShowType);
 	cv::imshow("image", image);
 
 	UpdateData(false);

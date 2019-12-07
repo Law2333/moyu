@@ -4,7 +4,7 @@
 #include "stdafx.h"
 #include "moyu.h"
 #include "GrayImgDlg.h"
-
+#include "public.h"
 
 // CGrayImgDlg
 
@@ -149,7 +149,7 @@ void CGrayImgDlg::OnBnClickedGraybutton()
 
 		//设置窗口格式
 		tempName.Format(_T("%d"), i);
-		cv::namedWindow(strWinName.append("image_").append((LPCSTR)CStringA(tempName)), winShowType);
+		cv::namedWindow(strWinName.append("image_").append((LPCSTR)CStringA(tempName)), CPublic::winShowType);
 		//显示图片
 		cv::imshow(strWinName, dstImgs[i]);
 	}

@@ -5,8 +5,3 @@
 
 #include "stdafx.h"
 
-
-//全局变量
-
-//菜单栏控制图片显示模式
-int winShowType = 1;

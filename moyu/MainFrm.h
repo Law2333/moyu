@@ -4,9 +4,6 @@
 
 #pragma once
 
-#include "ShowImgDlg.h"
-#include "BinaryImgDlg.h"
-
 //自定义消息
 #define NM_SHOWIMG (WM_USER + 100)
 #define NM_GRAYIMG (WM_USER + 101)
