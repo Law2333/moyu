@@ -37,6 +37,7 @@ public:
 	afx_msg void OnBnClickedChoosebutton();
 	afx_msg void OnBnClickedGraybutton();
 	afx_msg void OnBnClickedSavebutton();
+	afx_msg BOOL PreTranslateMessage(MSG* pMsg);
 };
 
 

@@ -15,9 +15,11 @@
 #define IDC_CHOOSEBUTTON                1000
 #define IDC_OPENEDIT                    1001
 #define IDC_OPENBUTTON                  1002
+#define IDC_CUTBUTTON2                  1003
 #define IDC_COMBO1                      1004
 #define IDC_TYPECOMBO                   1004
 #define IDC_MAXSLIDER                   1005
+#define IDC_CUTBUTTON4                  1005
 #define IDC_MINSLIDER                   1008
 #define IDC_MAXEDIT                     1009
 #define IDC_MINEDIT                     1010
@@ -27,6 +29,7 @@
 #define IDC_FILEEDIT                    1016
 #define IDC_GRAYBUTTON                  1017
 #define IDC_SHOWIMG                     1021
+#define IDC_STATICPIC                   1022
 #define ID_32771                        32771
 #define ID_32772                        32772
 #define ID_32773                        32773
@@ -37,7 +40,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        322
 #define _APS_NEXT_COMMAND_VALUE         32774
-#define _APS_NEXT_CONTROL_VALUE         1022
+#define _APS_NEXT_CONTROL_VALUE         1023
 #define _APS_NEXT_SYMED_VALUE           311
 #endif
 #endif

@@ -100,7 +100,7 @@ void CGrayImgDlg::OnBnClickedChoosebutton()
 			m_fileEdit.SetWindowTextW(picName);
 			if (numFile > 30)
 			{
-				AfxMessageBox(_T("选择的图片数量大于30!"));
+				AfxMessageBox(_T("选择的图片数量不可大于30!"));
 				return ;
 			}
 		}
@@ -179,15 +179,37 @@ void CGrayImgDlg::OnBnClickedSavebutton()
 		{
 			//获取路径并转换
 			filePath = fileDlg.GetPathName();
+			//更正文件名
 			tempName.Format(_T("%d"), i);
 			tempPath = (LPCSTR)CStringA(filePath);
-			//更正文件名
 			tempPath.insert(tempPath.rfind("."), (LPCSTR)CStringA(tempName));
+
 			cv::imwrite(tempPath, dstImgs[i]);
 		}
 		MessageBox(_T("保存成功"));
 	}
 
 	return;
+}
+
+BOOL CGrayImgDlg::PreTranslateMessage(MSG * pMsg)
+{
+	//截获键盘输入
+	if (pMsg->message == WM_KEYDOWN)
+	{
+		switch (pMsg->wParam)
+		{
+		case VK_ESCAPE:
+			//esc关闭所有弹出图像窗口
+			//MessageBox(_T("esc")); break;
+			cv::destroyAllWindows();
+
+		default:
+			break;
+		}
+	}
+
+	//__super指代父类
+	return __super::PreTranslateMessage(pMsg);
 }
 

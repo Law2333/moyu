@@ -35,10 +35,17 @@ private:
 	CEdit m_fileEdit;
 	CStatic m_showImgP;
 
+	HWND sWnd;			//窗口句柄
 	cv::Mat image;		//读取的图片
-	int drawFlag = 0;	//是否显示图片的标志
+	cv::Mat cutImg;     //裁剪后的图片
+	int drawFlag = 0;	//是否显示源图片的标志
+	int drawCutFlag = 0;	//是否显示裁剪图片的标志
 public:
 	afx_msg void OnPaint();
+	afx_msg void OnBnClickedCutbutton();
+	afx_msg BOOL PreTranslateMessage(MSG* pMsg);
+	virtual void OnInitialUpdate();
+	afx_msg void OnBnClickedSavebutton();
 };
 
 

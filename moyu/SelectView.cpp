@@ -63,7 +63,7 @@ void CSelectView::OnInitialUpdate()
 	m_treeCtrl->SetImageList(&m_imageList, TVSIL_NORMAL);
 
 	//添加节点,最后一个参数父节点
-	m_treeCtrl->InsertItem(_T("查看图片"),0,0,NULL);
+	m_treeCtrl->InsertItem(_T("图像裁剪"),0,0,NULL);
 	m_treeCtrl->InsertItem(_T("图像灰度处理"), 0, 0, NULL);
 	m_treeCtrl->InsertItem(_T("图像二值化"), 0, 0, NULL);
 
@@ -82,7 +82,7 @@ void CSelectView::OnTvnSelchanged(NMHDR *pNMHDR, LRESULT *pResult)
 	CString str = m_treeCtrl->GetItemText(item);
 
 	//MessageBox(str);
-	if (str == TEXT("查看图片"))
+	if (str == TEXT("图像裁剪"))
 	{
 		::PostMessage(AfxGetMainWnd()->GetSafeHwnd(), NM_SHOWIMG, (WPARAM)NM_SHOWIMG, (LPARAM)0);
 	}
