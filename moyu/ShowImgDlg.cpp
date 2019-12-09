@@ -179,6 +179,36 @@ void CShowImgDlg::OnBnClickedCutbutton()
 
 }
 
+//保存图片按钮
+void CShowImgDlg::OnBnClickedSavebutton()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	//检查图片是否已读取
+	if (cutImg.empty())
+	{
+		AfxMessageBox(_T("无法读取图片"));
+		return;
+	}
+
+	TCHAR imgFilter[] = _T("png文件(*.png)|*.png|JPEG文件(*.jpg)|*.jpg||");
+	// 构造保存文件对话框
+	CFileDialog fileDlg(FALSE, _T("png"), _T("cut"), OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT, imgFilter, this);
+	CString filePath;
+	// 显示保存文件对话框
+	if (IDOK == fileDlg.DoModal())
+	{
+		filePath = fileDlg.GetPathName();
+		std::string tempPath = (LPCSTR)CStringA(filePath);
+		cv::imwrite(tempPath, cutImg);
+
+		MessageBox(_T("保存成功"));
+	}
+
+	return;
+
+}
+
+
 //dlg循环捕获
 BOOL CShowImgDlg::PreTranslateMessage(MSG * pMsg)
 {
@@ -212,36 +242,9 @@ void CShowImgDlg::OnInitialUpdate()
 	//pic控件位置确定
 	pWnd = GetDlgItem(IDC_SHOWIMG); //获取控件指针，IDC_SHOWIMG为控件ID号
 	pWnd->MoveWindow(CRect(60, 260, 760, 960)); 
-
-	pWnd = GetDlgItem(IDC_STATICPIC); //获取控件指针，IDC_SHOWIMG为控件ID号
+	//GroupBox位置确定
+	pWnd = GetDlgItem(IDC_STATICPIC); 
 	pWnd->MoveWindow(CRect(50, 240, 770, 970));
 }
 
-//保存图片按钮
-void CShowImgDlg::OnBnClickedSavebutton()
-{
-	// TODO: 在此添加控件通知处理程序代码
-	//检查图片是否已读取
-	if (cutImg.empty())
-	{
-		AfxMessageBox(_T("无法读取图片"));
-		return;
-	}
 
-	TCHAR imgFilter[] = _T("png文件(*.png)|*.png|JPEG文件(*.jpg)|*.jpg||");
-	// 构造保存文件对话框
-	CFileDialog fileDlg(FALSE, _T("png"), _T("cut"), OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT, imgFilter, this);
-	CString filePath;
-	// 显示保存文件对话框
-	if (IDOK == fileDlg.DoModal())
-	{
-		filePath = fileDlg.GetPathName();
-		std::string tempPath = (LPCSTR)CStringA(filePath);
-		cv::imwrite(tempPath, cutImg);
-
-		MessageBox(_T("保存成功"));
-	}
-
-	return;
-
-}

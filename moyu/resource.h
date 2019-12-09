@@ -19,7 +19,6 @@
 #define IDC_COMBO1                      1004
 #define IDC_TYPECOMBO                   1004
 #define IDC_MAXSLIDER                   1005
-#define IDC_CUTBUTTON4                  1005
 #define IDC_MINSLIDER                   1008
 #define IDC_MAXEDIT                     1009
 #define IDC_MINEDIT                     1010
@@ -30,6 +29,11 @@
 #define IDC_GRAYBUTTON                  1017
 #define IDC_SHOWIMG                     1021
 #define IDC_STATICPIC                   1022
+#define IDC_BINARY_SRCIMG               1023
+#define IDC_BINARY_SRCIMGPIC            1024
+#define IDC_BINARY_DSTIMG               1025
+#define IDC_BINARY_SRCIMGPIC2           1026
+#define IDC_BINARY_DSTIMGPIC            1026
 #define ID_32771                        32771
 #define ID_32772                        32772
 #define ID_32773                        32773
@@ -40,7 +44,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        322
 #define _APS_NEXT_COMMAND_VALUE         32774
-#define _APS_NEXT_CONTROL_VALUE         1023
+#define _APS_NEXT_CONTROL_VALUE         1025
 #define _APS_NEXT_SYMED_VALUE           311
 #endif
 #endif

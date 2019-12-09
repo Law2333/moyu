@@ -33,7 +33,11 @@ public:
 	afx_msg void OnBnClickedChoosebutton();
 
 private:
-	cv::Mat srcImg,dstImg;
+	cv::Mat srcImg,dstImg;		//原图片，阈值化图片
+	int drawFlag = 0;	//是否源图片的标志
+	int drawThFlag = 0;	//是否阈值图片的标志
+	HWND sWnd;			//窗口句柄
+
 	CSliderCtrl m_maxSlider;
 	CSliderCtrl m_minSlider;
 	CEdit m_maxEdit;
@@ -49,6 +53,8 @@ public:
 private:
 	CComboBox m_typeCombox;
 	CComboBox m_methodCombox;
+public:
+	afx_msg void OnPaint();
 };
 
 

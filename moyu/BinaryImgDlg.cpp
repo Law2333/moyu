@@ -38,6 +38,7 @@ BEGIN_MESSAGE_MAP(CBinaryImgDlg, CFormView)
 	ON_NOTIFY(NM_CUSTOMDRAW, IDC_MINSLIDER, &CBinaryImgDlg::OnNMCustomdrawMinslider)
 	ON_BN_CLICKED(IDC_PROCESSBUTTON, &CBinaryImgDlg::OnBnClickedProcessbutton)
 	ON_BN_CLICKED(IDC_SAVEBUTTON, &CBinaryImgDlg::OnBnClickedSavebutton)
+	ON_WM_PAINT()
 END_MESSAGE_MAP()
 
 
@@ -79,7 +80,7 @@ void CBinaryImgDlg::OnBnClickedChoosebutton()
 	std::string tempPath = (LPCSTR)CStringA(filePath);
 
 	//读取图片
-    srcImg = cv::imread(tempPath,cv::IMREAD_GRAYSCALE);
+    srcImg = cv::imread(tempPath);
 	if (srcImg.empty())
 	{
 		AfxMessageBox(_T("无法打开图片"));
@@ -88,6 +89,13 @@ void CBinaryImgDlg::OnBnClickedChoosebutton()
 
 	cv::namedWindow("image", CPublic::winShowType);
 	cv::imshow("image", srcImg);
+
+	//pic控件中显示Mat
+	sWnd = this->GetSafeHwnd();		//获取句柄
+	CPublic::ShowMat(srcImg, sWnd, IDC_BINARY_SRCIMGPIC);
+	//保持图片显示
+	drawFlag = 1;
+	drawThFlag = 0;
 
 	UpdateData(false);
 	return;
@@ -104,6 +112,8 @@ void CBinaryImgDlg::OnBnClickedProcessbutton()
 		AfxMessageBox(_T("无法打开图片"));
 		return;
 	}
+	//灰度处理
+	cv::cvtColor(srcImg, dstImg, CV_BGR2GRAY);
 
 	//获取阈值并检查
 	int thresholdMin = m_minSlider.GetPos();
@@ -117,9 +127,16 @@ void CBinaryImgDlg::OnBnClickedProcessbutton()
 	int thresholdType = m_typeCombox.GetCurSel();
 	int thresholdMethod = m_methodCombox.GetCurSel() * 8;
 
-	cv::threshold(srcImg, dstImg, thresholdMin, thresholdMax, thresholdType|thresholdMethod);
+	cv::threshold(dstImg, dstImg, thresholdMin, thresholdMax, thresholdType|thresholdMethod);
 	cv::namedWindow("阈值图像", CPublic::winShowType);
 	cv::imshow("阈值图像", dstImg);
+
+	//pic控件中显示Mat
+	sWnd = this->GetSafeHwnd();		//获取句柄
+	CPublic::ShowMat(dstImg, sWnd, IDC_BINARY_DSTIMGPIC);
+	//保持图片显示
+	drawThFlag = 1;
+	drawFlag = 0;
 
 	return;
 }
@@ -174,6 +191,19 @@ void CBinaryImgDlg::OnInitialUpdate()
 	m_typeCombox.SetCurSel(0);
 	m_methodCombox.SetCurSel(0);
 
+	//pic控件位置初始化
+	CWnd *pWnd;
+	//源图像
+	pWnd = GetDlgItem(IDC_BINARY_SRCIMGPIC); 
+	pWnd->MoveWindow(CRect(60, 300, 660, 960));
+	pWnd = GetDlgItem(IDC_BINARY_SRCIMG); 
+	pWnd->MoveWindow(CRect(50, 280, 670, 970));
+	//输出图像
+	pWnd = GetDlgItem(IDC_BINARY_DSTIMGPIC);
+	pWnd->MoveWindow(CRect(810, 300, 1410, 960));
+	pWnd = GetDlgItem(IDC_BINARY_DSTIMG);
+	pWnd->MoveWindow(CRect(800, 280, 1420, 970));
+
 	return;
 }
 
@@ -215,13 +245,21 @@ BOOL CBinaryImgDlg::PreTranslateMessage(MSG* pMsg)
 {
 	// TODO: 在此添加专用代码和/或调用基类
 
-	if (WM_KEYFIRST <= pMsg-> message && pMsg-> message <= WM_KEYLAST)   
-	{  
-		//键盘回车响应
-		if(pMsg-> wParam==VK_RETURN )   
-		{  
-			UpdateData(TRUE);  
-			
+	//截获键盘输入
+	if (pMsg->message == WM_KEYDOWN)
+	{
+		switch (pMsg->wParam)
+		{
+		case VK_ESCAPE:
+		//esc关闭所有弹出图像窗口
+		//MessageBox(_T("esc")); break;
+		{
+			cv::destroyAllWindows();
+			break;
+		}
+		case VK_RETURN:
+		//回车根据文字同步滑动条
+		{
 			CString strMax;
 			int valueMax;
 			m_maxEdit.GetWindowTextW(strMax);
@@ -234,12 +272,36 @@ BOOL CBinaryImgDlg::PreTranslateMessage(MSG* pMsg)
 			valueMin = _ttoi(strMin);					//转换成int整数
 			m_minSlider.SetPos(valueMin);
 
-		}   
-	} 
+			break;
+		}
+		default:
+			break;
+		}
+	}
 
-	return CFormView::PreTranslateMessage(pMsg);
+	//__super指代父类
+	return __super::PreTranslateMessage(pMsg);
 }
 
 
 
 
+
+
+void CBinaryImgDlg::OnPaint()
+{
+	// TODO: 在此处添加消息处理程序代码
+	// 不为绘图消息调用 CFormView::OnPaint()
+	CFormView::OnPaint();
+	//按下显示按钮，图片维持显示状态
+	if (drawFlag)
+	{
+		CPublic::ShowMat(srcImg, sWnd, IDC_BINARY_SRCIMGPIC);
+	}
+	else if (drawThFlag)
+	{
+		CPublic::ShowMat(srcImg, sWnd, IDC_BINARY_SRCIMGPIC);
+		CPublic::ShowMat(dstImg, sWnd, IDC_BINARY_DSTIMGPIC);
+	}
+
+}
